@@ -1,1 +1,1 @@
-# InetSocket
+# Inet::Socket
