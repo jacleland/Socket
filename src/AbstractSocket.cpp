@@ -35,43 +35,43 @@
 //Namespace container
 namespace Inet {
 
-/*! @brief Platform-specific getter for errno */
-inline int LastError() {
-	return errno;
-};
+	/*! @brief Platform-specific getter for errno */
+	inline int LastError() {
+		return errno;
+	};
 
-/*! @brief Default Constructor Implementation
- *  @todo Need to initialize members that apply
- */
-AbstractSocket::AbstractSocket() {
-}
-
-/*! @brief Destructor */
-AbstractSocket::~AbstractSocket() {
-}
-
-/*! @brief Move constructor
- *  @param other Const Socket reference rvalue to move from
- */
-AbstractSocket::AbstractSocket(AbstractSocket&& other) noexcept {
-	//Call move assignment operator
-	*this = std::move(other);
-}
-
-/*! @brief Move assignment operator
- *  @param other Const Socket reference rvalue to move from
- *  @return A reference to this instance
- */
-AbstractSocket& AbstractSocket::operator=(AbstractSocket&& other) noexcept {
-	//Don't allow self-assignment
-	if(this != &other) {
-		//Call base class move
-		//Move socket instance
-		socket_ = std::move(other.socket_);
+	/*!	@brief Default Constructor Implementation
+	 *	@todo Need to initialize members that apply
+	 */
+	AbstractSocket::AbstractSocket() {
 	}
 
-	//Return self ref
-	return *this;
-}
+	/*!	@brief Destructor */
+	AbstractSocket::~AbstractSocket() {
+	}
+
+	/*!	@brief Move constructor
+	 *	@param other Const Socket reference rvalue to move from
+	 */
+	AbstractSocket::AbstractSocket(AbstractSocket&& other) noexcept {
+		//Call move assignment operator
+		*this = std::move(other);
+	}
+
+	/*!	@brief Move assignment operator
+	 *	@param other Const Socket reference rvalue to move from
+	 *	@return A reference to this instance
+	 */
+	AbstractSocket& AbstractSocket::operator=(AbstractSocket&& other) noexcept {
+		//Don't allow self-assignment
+		if(this != &other) {
+			//Call base class move
+			//Move socket instance
+			socket_ = std::move(other.socket_);
+		}
+
+		//Return self ref
+		return *this;
+	}
 
 }; //Inet namespace

@@ -93,18 +93,18 @@ AddressUPtr_t Address::get(const char* host, const char* service,
 	return std::make_unique<Address>(pAddrInfo);
 }
 
-/*! @brief Default constructor */
+/*!	@brief Default constructor */
 Address::Address() : pAddrInfo_(nullptr), pCurrent_(nullptr) {
 }
 
-/*! @brief Construct instance using AddrInfo_t*
+/*!	@brief Construct instance using AddrInfo_t*
  *	@param pinfo A pointer to AddrInfo_t data from getaddrinfo()
  */
 Address::Address(AddrInfo_t* pInfo) :
 	pAddrInfo_(pInfo), pCurrent_(pInfo) {
 }
 
-/*! @brief Destructor */
+/*!	@brief Destructor */
 Address::~Address() {
 	//Free any resources allocated by getaddrinfo()
 	if(pAddrInfo_ != nullptr)
@@ -151,7 +151,7 @@ void Address::first() {
 
 /*!	@brief Returns true if the address will contain valid information after a call to next()
  *	@return True if the address will be valid after calling next(), false if
- * 	there are no more addresses in the linked list.
+ *	there are no more addresses in the linked list.
  */
 bool Address::hasNext() const {
 	return (pAddrInfo_->ai_next != nullptr) ? true : false;

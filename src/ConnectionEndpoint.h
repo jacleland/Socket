@@ -40,10 +40,11 @@ namespace Inet {
 class ServerSocket;
 
 /*	@brief
-	*	@author James.A.Cleland@gmail.com
-	*/
+ *	@author James.A.Cleland@gmail.com
+ */
 class ConnectionEndpoint : public AbstractSocket {
 	friend ServerSocket;
+
 protected:
 	ConnectionEndpoint(socket_t sock, const SockAddrInPtr_t pAddr, int addrLen);
 
@@ -54,35 +55,35 @@ public:
 	/*!	@brief Default destructor */
 	virtual ~ConnectionEndpoint();
 
-	// No default copy constructor or assignment - use move instead
+	//No default copy constructor or assignment - use move instead
 	ConnectionEndpoint(const ConnectionEndpoint &other) = delete;
 	ConnectionEndpoint &operator=(const ConnectionEndpoint &other) = delete;
 
 	/*!	@brief Move constructor
-		*	@param other Object to copy from
-		*/
+	 *	@param other Object to copy from
+	 */
 	ConnectionEndpoint(ConnectionEndpoint &&other) noexcept;
 
 	/*!	@brief Move assignment operator
-		*	@param other object to assign from
-		*	@return Reference to this instance
-		*/
+	 *	@param other object to assign from
+	 *	@return Reference to this instance
+	 */
 	ConnectionEndpoint& operator=(ConnectionEndpoint &&other) noexcept;
 
 	/*!	@brief Send data to the connected peer
-		* 	@todo This method is a placeholder, meant to behave in a manner
-		* 				identical to the runtime library equivilent.
-		*/
+	 *	@todo This method is a placeholder, meant to behave in a manner
+	 *				identical to the runtime library equivilent.
+	 */
 	virtual int send(const char* buf, int len);
 
 	/*!	@brief Receive data from the connected peer
-		* 	@todo This method is a placeholder, meant to behave in a manner
-		* 				identical to the runtime library equivilent.
-		*/
+	 *	@todo This method is a placeholder, meant to behave in a manner
+	 *				identical to the runtime library equivilent.
+	 */
 	virtual int receive(char *buf, int len);
 
 	/*!	@brief Closes the connection
-		*/
+	 */
 	virtual void close();
 
 protected:

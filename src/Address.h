@@ -58,7 +58,7 @@ typedef AddrInfo_t*										AddrInfoPtr_t;
  *	according to inet family, socket protocol, host and service types.
  *	The Addresses value returned is suitable for use in calls to
  *	Socket::bind() and Socket::connect()
- *  @author jcleland
+ *	@author jcleland
  */
 class Address {
 	public:
@@ -141,7 +141,7 @@ class Address {
 		}
 
 		/*!	@brief Type conversion to sockaddr*
-		 * 	@return A SockAddrPtr_t representing the address encapsulated by this Address
+		 *	@return A SockAddrPtr_t representing the address encapsulated by this Address
 		 */
 		operator const SockAddrPtr_t () const {
 			return (pCurrent_ != nullptr) ? pCurrent_->ai_addr : nullptr;
@@ -153,7 +153,7 @@ class Address {
 
 		/*!	@brief Returns true if the address will contain valid information after a call to next()
 		 *	@return True if the address will be valid after calling next(), false if
-		 * 	there are no more addresses in the linked list.
+		 *	there are no more addresses in the linked list.
 		 */
 		bool hasNext() const;
 

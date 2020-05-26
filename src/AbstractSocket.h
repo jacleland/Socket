@@ -53,7 +53,7 @@ typedef int														socket_t;
 typedef socklen_t											SockLen_t;
 typedef SockLen_t*										SockLenPtr_t;
 
-/*	@brief Abstract base class for network sockets
+/*!	@brief Abstract base class for network sockets
  *	@author James.A.Cleland@gmail.com
  */
 class AbstractSocket {
@@ -69,14 +69,14 @@ public:
 	AbstractSocket &operator=(const AbstractSocket &other) = delete;
 
 	/*!	@brief Move constructor
-		*	@param other Object to copy from
-		*/
+	 *	@param other Object to copy from
+	 */
 	AbstractSocket(AbstractSocket &&other) noexcept;
 
 	/*!	@brief Move assignment operator
-		*	@param other object to assign from
-		*	@return Reference to this instance
-		*/
+	 *	@param other object to assign from
+	 *	@return Reference to this instance
+	 */
 	AbstractSocket& operator=(AbstractSocket &&other) noexcept;
 
 protected:

@@ -1,21 +1,21 @@
 /*!
  *
- *  The latest source code can be downloaded at:
+ *	The latest source code can be downloaded at:
  *
- *  Copyright (c) 2020, James A. Cleland <jcleland at jamescleland dot com>
+ *	Copyright (c) 2020, James A. Cleland <jcleland at jamescleland dot com>
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
+ *	This program is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ *	This program is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *	You should have received a copy of the GNU General Public License
+ *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 //System includes
@@ -36,32 +36,32 @@
 //Namespace container
 namespace Inet {
 
-/*! @brief Platform-specific getter for errno */
+/*!	@brief Platform-specific getter for errno */
 inline int LastError() {
 	return errno;
 };
 
-/*! @brief Default Constructor Implementation
- *  @todo Need to initialize members that apply
+/*!	@brief Default Constructor Implementation
+ *	@todo Need to initialize members that apply
  */
 ServerSocket::ServerSocket() {
 }
 
-/*! @brief Destructor */
+/*!	@brief Destructor */
 ServerSocket::~ServerSocket() {
 }
 
-/*! @brief Move constructor
- *  @param other Const ServerSocket reference rvalue to move from
+/*!	@brief Move constructor
+ *	@param other Const ServerSocket reference rvalue to move from
  */
 ServerSocket::ServerSocket(ServerSocket &&other) noexcept {
 	//Call move assignment operator
 	*this = std::move(other);
 }
 
-/*! @brief Move assignment operator
- *  @param other Const ServerSocket reference rvalue to move from
- *  @return A reference to this instance
+/*!	@brief Move assignment operator
+ *	@param other Const ServerSocket reference rvalue to move from
+ *	@return A reference to this instance
  */
 ServerSocket& ServerSocket::operator=(ServerSocket &&other) noexcept {
 	//Don't allow self-assignment
@@ -77,8 +77,7 @@ ServerSocket& ServerSocket::operator=(ServerSocket &&other) noexcept {
 
 /*!	@brief
  *	@param
-+
-*/
+ */
 void ServerSocket::bind(const uint16_t port) {
 	//Create sockaddr struct to use for local inet socket address
 	SockAddrIn_t saddr;
@@ -99,8 +98,8 @@ void ServerSocket::bind(const uint16_t port) {
 }
 
 /*!	@brief
-	*	@param
-	*/
+ *	@param
+ */
 void ServerSocket::listen(const int backlog) {
 	//TODO Validate socket
 	//TODO Validate backlog
@@ -111,8 +110,8 @@ void ServerSocket::listen(const int backlog) {
 }
 
 /*!	@brief
-	*	@param
-	*/
+ *	@param
+ */
 ConnectionEndpoint ServerSocket::accept() {
 	//Declare local
 	SockAddrIn_t address;

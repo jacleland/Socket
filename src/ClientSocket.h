@@ -51,14 +51,14 @@ public:
 	ClientSocket &operator=(const ClientSocket &other) = delete;
 
 	/*!	@brief Move constructor
-		*	@param other Object to copy from
-		*/
+	 *	@param other Object to copy from
+	 */
 	ClientSocket(ClientSocket &&other) noexcept;
 
 	/*!	@brief Move assignment operator
-		*	@param other object to assign from
-		*	@return Reference to this instance
-		*/
+	 *	@param other object to assign from
+	 *	@return Reference to this instance
+	 */
 	ClientSocket &operator=(ClientSocket &&other) noexcept;
 
 	/*!	@brief Connect to the specified endpoint address

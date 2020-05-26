@@ -51,15 +51,15 @@ public:
 	ServerSocket &operator=(const ServerSocket &other) = delete;
 
 	/*!	@brief Move constructor
-		*	@param other Object to copy from
-		*/
+	 *	@param other Object to copy from
+	 */
 	ServerSocket(ServerSocket &&other) noexcept;
 
 
 	/*!	@brief Move assignment operator
-		*	@param other object to assign from
-		*	@return Reference to this instance
-		*/
+	 *	@param other object to assign from
+	 *	@return Reference to this instance
+	 */
 	ServerSocket& operator=(ServerSocket &&other) noexcept;
 
 	/*!	@brief

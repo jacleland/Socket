@@ -50,17 +50,17 @@ ConnectionEndpoint::ConnectionEndpoint() {
 ConnectionEndpoint::~ConnectionEndpoint() {
 }
 
-/*! @brief Move constructor
- *  @param other Const Socket reference rvalue to move from
+/*!	@brief Move constructor
+ *	@param other Const Socket reference rvalue to move from
  */
 ConnectionEndpoint::ConnectionEndpoint(ConnectionEndpoint&& other) noexcept {
 	//Call move assignment operator
 	*this = std::move(other);
 }
 
-/*! @brief Move assignment operator
- *  @param other Const Socket reference rvalue to move from
- *  @return A reference to this instance
+/*!	@brief Move assignment operator
+ *	@param other Const Socket reference rvalue to move from
+ *	@return A reference to this instance
  */
 ConnectionEndpoint& ConnectionEndpoint::operator=(ConnectionEndpoint&& other) noexcept {
 	//Don't allow self-assignment
@@ -74,10 +74,10 @@ ConnectionEndpoint& ConnectionEndpoint::operator=(ConnectionEndpoint&& other) no
 }
 
 /*!	@brief Send data to the connected endpoint
- * 	@param buf A pointer to the buffer containing data to send
- * 	@param len The number of bytes to send
- *  @return The nubmer of bytes successfully sent
- *  @throws On error sending data
+ *	@param buf A pointer to the buffer containing data to send
+ *	@param len The number of bytes to send
+ *	@return The nubmer of bytes successfully sent
+ *	@throws On error sending data
  */
 int ConnectionEndpoint::send(const char* buf, int len) {
 	//Declare locals
