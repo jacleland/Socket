@@ -4,3 +4,8 @@ root = true
 indent_style = tab
 indent_size = 2
 
+[CMakeLists.txt]
+indent_style = tab
+indent_size = 2
+
+

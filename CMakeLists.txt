@@ -20,7 +20,8 @@ include_directories(
 
 #----------------------------------------------------------
 # Locate CxxTest
-find_package(CxxTest REQUIRED)
+#find_package(CxxTest REQUIRED)
+find_package(CxxTest)
 
 #----------------------------------------------------------
 #
