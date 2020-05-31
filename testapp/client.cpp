@@ -81,16 +81,15 @@ int main(int argc, char *argv[]) {
 		//Loop for send/receive
 		for(int i = 0; i < msgCount; i++) {
 			//Output message and send data to echo server
-			std::cout << "Sending " << msgSize << "-byte message to server... ";
+			std::cout << "Sending message to server... ";
 			SendMessage(*client, buffer, msgSize);
 
 			//Chunk counter
 			uint32_t chunks = 0;
-			std::cout << "Receiving echo reply, ";
 			ReceiveMessage(*client, recvbuf, recvbytes, chunks);
 
 			//Output message
-			std::cout << "read " << chunks << " chunk(s) of data: ";
+			std::cout << "Read " << msgSize << "-byte reply in " << chunks << " chunk(s) of data: ";
 
 			//Compare messages
 			if(memcmp(&buffer[0], &recvbuf[0], msgSize) == 0)

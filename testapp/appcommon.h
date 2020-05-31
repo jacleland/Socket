@@ -17,6 +17,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef APPCOMMON_H_INCLUDED
+#define APPCOMMON_H_INCLUDED
+
 //System includes
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -111,4 +114,4 @@ bool ReceiveMessage(ConnectionEndpoint& conn, BufferPtr_t& buffer, uint32_t& buf
 
 }; //Inet namespace
 
-
+#endif //Include once
