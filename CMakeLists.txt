@@ -1,12 +1,12 @@
-#----------------------------------------------------------
+###############################################################################
 # Inet::Socket library
 #
 cmake_minimum_required (VERSION 3.10)
-set(CMAKE_INSTALL_PREFIX ${HOME})
 #set(CMAKE_VERBOSE_MAKEFILE 1)
 
-#----------------------------------------------------------
+#------------------------------------------------------------------------------
 # Project name and config
+#
 project(Socket)
 
 ###############################################################################
@@ -23,6 +23,8 @@ include_directories(
 #find_package(CxxTest REQUIRED)
 find_package(CxxTest)
 
+
+
 #----------------------------------------------------------
 #
 set(DEPENDENCY_LIST
@@ -32,21 +34,33 @@ set(DEPENDENCY_LIST
 #----------------------------------------------------------
 # Source files for socket library
 #
-set(
-	LIBRARY_SOURCE_FILES
-		src/Address.cpp
-		src/AbstractSocket.cpp
-		src/ConnectionEndpoint.cpp
-		src/ClientSocket.cpp
-		src/ServerSocket.cpp
+set(LIBRARY_SOURCE_FILES
+	src/Address.cpp
+	src/AbstractSocket.cpp
+	src/ConnectionEndpoint.cpp
+	src/ClientSocket.cpp
+	src/ServerSocket.cpp
+	src/NetStream.cpp
 )
 
-#----------------------------------------------------------
+set(CLIENT_SOURCE_FILES
+	testapp/client.cpp
+)
+
+set(SERVER_SOURCE_FILES
+	testapp/server.cpp
+)
+
+###############################################################################
 # Library targets
 #
+
+# Shared library target
 add_library(Socket_shared SHARED ${LIBRARY_SOURCE_FILES})
 set_property(TARGET Socket_shared PROPERTY POSITION_INDEPENDENT_CODE 1)
 set_target_properties(Socket_shared PROPERTIES OUTPUT_NAME Socket)
+
+# Static library target
 add_library(Socket_static STATIC ${LIBRARY_SOURCE_FILES})
 set_target_properties(Socket_static PROPERTIES OUTPUT_NAME Socket)
 
@@ -57,7 +71,6 @@ set_target_properties(Socket_static PROPERTIES OUTPUT_NAME Socket)
 #------------------------------------------------------------------------------
 # Echo client target
 #
-set(CLIENT_SOURCE_FILES testapp/client.cpp)
 add_executable(EchoClient ${CLIENT_SOURCE_FILES})
 set_target_properties(EchoClient PROPERTIES OUTPUT_NAME echoclient)
 target_link_libraries(EchoClient PRIVATE Socket_shared)
@@ -65,26 +78,16 @@ target_link_libraries(EchoClient PRIVATE Socket_shared)
 #----------------------------------------------------------
 # Echo server target
 #
-set(SERVER_SOURCE_FILES testapp/server.cpp)
 add_executable(EchoServer ${SERVER_SOURCE_FILES})
 set_target_properties(EchoServer PROPERTIES OUTPUT_NAME echoserver)
 target_link_libraries(EchoServer PRIVATE Socket_shared)
 
 ###############################################################################
-# If CxxTest is installed, build unit tests
+# If CxxTest is installed, build unit tests for CTest
 #
 if(CXXTEST_FOUND)
-# 	----------------------------------------------------------
-# 	include_directories(
-# 		${CMAKE_CURRENT_SOURCE_DIR}
-# 		${CXXTEST_INCLUDE_DIR}
-# 		${CMAKE_SOURCE_DIR}/src
-# 	)
-# 	enable_testing()
-# 	CXXTEST_ADD_TEST(SocketTests SocketTests.cpp ${CMAKE_CURRENT_SOURCE_DIR}/tests/SocketTests.h)
-# 	CXXTEST_ADD_TEST(AddressTests AddressTests.cpp ${CMAKE_CURRENT_SOURCE_DIR}/tests/AddressTests.h)
-# 	target_link_libraries(AddressTests PUBLIC Socket_shared)
-# 	target_link_libraries(SocketTests PUBLIC Socket_shared)
+	include(CTest)
+	add_subdirectory(tests)
 endif()
 
 ###############################################################################
@@ -97,4 +100,9 @@ install(
 	RUNTIME DESTINATION bin
 	LIBRARY DESTINATION lib
 	ARCHIVE DESTINATION lib
+)
+
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/src/
+	DESTINATION include/Inet
+	FILES_MATCHING PATTERN "*.h*"
 )

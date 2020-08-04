@@ -71,6 +71,7 @@ int main(int argc, char *argv[]) {
 			uint32_t buflen = 0;
 
 			//Accept connection
+			std::cout << "Waiting for clients..." << std::endl;
 			ConnectionEndpoint &&client = pSock->accept();
 
 			//Receive messages from the client and echo them back until connection closed

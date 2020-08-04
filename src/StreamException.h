@@ -19,8 +19,8 @@
  */
 
 //Include once
-#ifndef ADDRESSEXCEPTION_H_INCLUDED
-#define ADDRESSEXCEPTION_H_INCLUDED
+#ifndef STREAMEXCEPTION_H_INCLUDED
+#define STREAMEXCEPTION_H_INCLUDED
 
 //System includes
 
@@ -32,30 +32,32 @@
 
 //Namespace container
 namespace Inet {
+	const int		STREAM_ERR_INVALID_TYPE                = 1;
+	const char	STREAM_MSG_INVALID_TYPE[]              = "The next stream value is not of the requested type.";
 
-/*!	@brief Exception type thrown by Address
- *	@author jcleland
- */
-class AddressException : public std::exception {
+	/*!	@brief Exception type thrown by Address
+	 *	@author jcleland
+	 */
+	class StreamException : public std::exception {
 	public:
 		/*!	@brief Constructor for char* error message
 		 *	@param code An integer value to be associated with this exception
 		 *	@param message Point to buffer containing NULL-terminated string
 		 */
-		explicit AddressException(const int& code, const char* message) :
-			code_(code), msg_(message) {
+		explicit StreamException(const int& code, const char* message) :
+		code_(code), msg_(message) {
 		}
 
 		/*!	@brief Constructor for std::string error message
 		 *	@param code An integer value to be associated with this exception
 		 *	@param message A std::string instance containing the error message
 		 */
-		explicit AddressException(const int& code, const std::string& message) :
-			code_(code), msg_(message) {
+		explicit StreamException(const int& code, const std::string& message) :
+		code_(code), msg_(message) {
 		}
 
 		/*!	@brief Destructor */
-		virtual ~AddressException() throw() {}
+		virtual ~StreamException() throw() {}
 
 		/*! @brief Returns an integer exception code
 		 *	@return An integer value representing the code associated with this exception
@@ -75,7 +77,8 @@ class AddressException : public std::exception {
 	protected:
 		int						code_;				/*! Error code associated with this exception */
 		std::string 	msg_;					/*! Message string */
-};
+	};
 } //Inet namespace
 
-#endif	//ADDRESSEXCEPTION_H_INCLUDED
+#endif	//STREAMEXCEPTION_H_INCLUDED
+

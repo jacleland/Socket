@@ -32,6 +32,7 @@
 //Project includes
 #include "appcommon.h"
 #include "ClientSocket.h"
+#include "NetStream.h"
 
 using namespace Inet;
 

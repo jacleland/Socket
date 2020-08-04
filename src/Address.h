@@ -136,14 +136,14 @@ class Address {
 		/*!	@brief Conversion operator for casting Address to addrinfo*
 		 *	@return A pointer to the current addrinfo pointer associated with this address
 		 */
-		operator const AddrInfoPtr_t () const {
+		operator AddrInfoPtr_t () const {
 			return pCurrent_;
 		}
 
 		/*!	@brief Type conversion to sockaddr*
 		 *	@return A SockAddrPtr_t representing the address encapsulated by this Address
 		 */
-		operator const SockAddrPtr_t () const {
+		operator SockAddrPtr_t () const {
 			return (pCurrent_ != nullptr) ? pCurrent_->ai_addr : nullptr;
 		}
 

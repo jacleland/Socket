@@ -68,7 +68,7 @@ class SocketException : public std::exception {
 		 *	@return A const char* pointing to the error message string
 		 *	@throw std::exception if message is null
 		 */
-		virtual const char* what() const noexcept {
+		virtual const char* what() const noexcept override {
 			return msg_.c_str();
 		}
 
