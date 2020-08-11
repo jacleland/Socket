@@ -91,9 +91,9 @@ namespace Inet {
 	 *	@return Reference to this stream instance
 	 */
 	NetStream& NetStream::operator<<(const char& val)	{
-		buffer_.push_back( STREAM_TYPE_CHAR );
+		buffer_.push_back( Type::CHAR );
 		buffer_.push_back( val );
-		buffer_.push_back( STREAM_TYPE_CHAR );
+		buffer_.push_back( Type::CHAR );
 		return *this;
 	}
 
@@ -102,9 +102,9 @@ namespace Inet {
 	 *	@return Reference to this stream instance
 	 */
 	NetStream& NetStream::operator<<(const u_char& val) {
-		buffer_.push_back( STREAM_TYPE_UCHAR );
+		buffer_.push_back( Type::UCHAR );
 		buffer_.push_back( val );
-		buffer_.push_back( STREAM_TYPE_UCHAR );
+		buffer_.push_back( Type::UCHAR );
 		return *this;
 	}
 
@@ -121,12 +121,12 @@ namespace Inet {
 		u_char* pIndex = (u_char*)&netval;
 
 		//Push the type indicator, integer bytes, and closing type indicator
-		buffer_.push_back( STREAM_TYPE_INT16 );
+		buffer_.push_back( Type::INT16 );
 		for( u_int16_t count = 0; count < sizeof(int16_t); count++ ){
 			buffer_.push_back(*pIndex);
 			pIndex++;
 		}
-		buffer_.push_back( STREAM_TYPE_INT16 );
+		buffer_.push_back( Type::INT16 );
 
 		//Return
 		return *this;
@@ -145,12 +145,12 @@ namespace Inet {
 		u_char* pIndex = (u_char*)&netval;
 
 		//Push the type indicator
-		buffer_.push_back( STREAM_TYPE_UINT16 );
+		buffer_.push_back( Type::UINT16 );
 		for(u_int16_t count = 0; count < sizeof(u_int16_t); count++) {
 			buffer_.push_back(*pIndex);
 			pIndex++;
 		}
-		buffer_.push_back( STREAM_TYPE_UINT16 );
+		buffer_.push_back( Type::UINT16 );
 
 		//Return
 		return *this;
@@ -169,12 +169,12 @@ namespace Inet {
 		u_char* pIndex = (u_char*)&netval;
 
 		//Push the type indicator
-		buffer_.push_back( STREAM_TYPE_INT32 );
+		buffer_.push_back( Type::INT32 );
 		for(u_int16_t count = 0; count < sizeof(int32_t); count++) {
 			buffer_.push_back( *pIndex );
 			pIndex++;
 		}
-		buffer_.push_back( STREAM_TYPE_INT32 );
+		buffer_.push_back( Type::INT32 );
 
 		//Return
 		return *this;
@@ -193,12 +193,12 @@ namespace Inet {
 		u_char* pIndex = (u_char*)&netval;
 
 		//Push the type indicator
-		buffer_.push_back( STREAM_TYPE_UINT32 );
+		buffer_.push_back( Type::UINT32 );
 		for(u_int16_t count = 0; count < sizeof(u_int32_t); count++) {
 			buffer_.push_back( *pIndex );
 			pIndex++;
 		}
-		buffer_.push_back( STREAM_TYPE_UINT32 );
+		buffer_.push_back( Type::UINT32 );
 
 		//Return
 		return *this;
@@ -217,12 +217,12 @@ namespace Inet {
 		u_char* pIndex = (u_char*)&netval;
 
 		//Push the type indicator
-		buffer_.push_back( STREAM_TYPE_INT64 );
+		buffer_.push_back( Type::INT64 );
 		for(u_int16_t count = 0; count < sizeof(int64_t); count++) {
 			buffer_.push_back( *pIndex );
 			pIndex++;
 		}
-		buffer_.push_back( STREAM_TYPE_INT64 );
+		buffer_.push_back( Type::INT64 );
 
 		//Return
 		return *this;
@@ -241,12 +241,12 @@ namespace Inet {
 		u_char* pIndex = (u_char*)&netval;
 
 		//Push the type indicator
-		buffer_.push_back( STREAM_TYPE_UINT64 );
+		buffer_.push_back( Type::UINT64 );
 		for(u_int16_t count = 0; count < sizeof(u_int64_t); count++) {
 			buffer_.push_back( *pIndex );
 			pIndex++;
 		}
-		buffer_.push_back( STREAM_TYPE_UINT64 );
+		buffer_.push_back( Type::UINT64 );
 
 		//Return
 		return *this;
@@ -266,7 +266,7 @@ namespace Inet {
 		length = val.length();
 
 		//Push the type indicator (tail)
-		buffer_.push_back( STREAM_TYPE_STRING );
+		buffer_.push_back( Type::STRING );
 
 		//Push the string into the vector first
 		for( count = 0; count < length; count++ ) {
@@ -284,7 +284,7 @@ namespace Inet {
 		}
 
 		//Push the type indicator (head)
-		buffer_.push_back( STREAM_TYPE_STRING );
+		buffer_.push_back( Type::STRING );
 
 		//Return
 		return *this;
@@ -303,7 +303,7 @@ namespace Inet {
 		itr = buffer_.end()-1;
 
 		//Validate the data
-		if( *itr != STREAM_TYPE_CHAR || *(itr-(sizeof(char)+1)) != STREAM_TYPE_CHAR ) {
+		if( *itr != Type::CHAR || *(itr-(sizeof(char)+1)) != Type::CHAR ) {
 			throw StreamException( STREAM_ERR_INVALID_TYPE, STREAM_MSG_INVALID_TYPE);
 		}
 
@@ -329,7 +329,7 @@ namespace Inet {
 		itr = buffer_.end()-1;
 
 		//Validate the data
-		if( *itr != STREAM_TYPE_UCHAR || *(itr-(sizeof(u_char)+1)) != STREAM_TYPE_UCHAR ) {
+		if( *itr != Type::UCHAR || *(itr-(sizeof(u_char)+1)) != Type::UCHAR ) {
 			throw StreamException( STREAM_ERR_INVALID_TYPE, STREAM_MSG_INVALID_TYPE);
 		}
 
@@ -356,7 +356,7 @@ namespace Inet {
 		itr = buffer_.end()-1;
 
 		//Validate the data
-		if(*itr != STREAM_TYPE_INT16 || *(itr-(sizeof(int16_t)+1)) != STREAM_TYPE_INT16) {
+		if(*itr != Type::INT16 || *(itr-(sizeof(int16_t)+1)) != Type::INT16) {
 			throw StreamException(STREAM_ERR_INVALID_TYPE, STREAM_MSG_INVALID_TYPE);
 		}
 
@@ -388,7 +388,7 @@ namespace Inet {
 		itr = buffer_.end()-1;
 
 		//Validate the data
-		if(*itr != STREAM_TYPE_UINT16 || *(itr-(sizeof(u_int16_t)+1)) != STREAM_TYPE_UINT16) {
+		if(*itr != Type::UINT16 || *(itr-(sizeof(u_int16_t)+1)) != Type::UINT16) {
 			throw StreamException(STREAM_ERR_INVALID_TYPE, STREAM_MSG_INVALID_TYPE);
 		}
 
@@ -420,7 +420,7 @@ namespace Inet {
 		itr = buffer_.end()-1;
 
 		//Validate the data
-		if(*itr != STREAM_TYPE_INT32 || *(itr-(sizeof(int32_t)+1)) != STREAM_TYPE_INT32) {
+		if(*itr != Type::INT32 || *(itr-(sizeof(int32_t)+1)) != Type::INT32) {
 			throw StreamException(STREAM_ERR_INVALID_TYPE, STREAM_MSG_INVALID_TYPE);
 		}
 
@@ -452,7 +452,7 @@ namespace Inet {
 		itr = buffer_.end()-1;
 
 		//Validate the data
-		if(*itr != STREAM_TYPE_UINT32 || *(itr-(sizeof(u_int32_t)+1)) != STREAM_TYPE_UINT32) {
+		if(*itr != Type::UINT32 || *(itr-(sizeof(u_int32_t)+1)) != Type::UINT32) {
 			throw StreamException(STREAM_ERR_INVALID_TYPE, STREAM_MSG_INVALID_TYPE);
 		}
 
@@ -484,7 +484,7 @@ namespace Inet {
 		itr = buffer_.end()-1;
 
 		//Validate the data
-		if(*itr != STREAM_TYPE_INT64 || *(itr-(sizeof(int64_t)+1)) != STREAM_TYPE_INT64) {
+		if(*itr != Type::INT64 || *(itr-(sizeof(int64_t)+1)) != Type::INT64) {
 			throw StreamException(STREAM_ERR_INVALID_TYPE, STREAM_MSG_INVALID_TYPE);
 		}
 
@@ -516,7 +516,7 @@ namespace Inet {
 		itr = buffer_.end()-1;
 
 		//Validate the data
-		if(*itr != STREAM_TYPE_UINT64 || *(itr-(sizeof(u_int64_t)+1)) != STREAM_TYPE_UINT64) {
+		if(*itr != Type::UINT64 || *(itr-(sizeof(u_int64_t)+1)) != Type::UINT64) {
 			throw StreamException(STREAM_ERR_INVALID_TYPE, STREAM_MSG_INVALID_TYPE);
 		}
 
@@ -549,7 +549,7 @@ namespace Inet {
 		itr = buffer_.end()-1;
 
 		//Validate the data
-		if( *itr != STREAM_TYPE_STRING )
+		if( *itr != Type::STRING )
 			throw StreamException( STREAM_ERR_INVALID_TYPE, STREAM_MSG_INVALID_TYPE);
 
 		//Move past the Type
@@ -564,7 +564,7 @@ namespace Inet {
 		length = ntohl(length);
 
 		//Check the size against the pointer and check for type at the end
-		if( *(itr-length) != STREAM_TYPE_STRING )
+		if( *(itr-length) != Type::STRING )
 			throw StreamException( STREAM_ERR_INVALID_TYPE,STREAM_MSG_INVALID_TYPE);
 
 		//Allocate buffer for string

@@ -32,22 +32,26 @@
 //Namespace container
 namespace Inet {
 
-const char STREAM_TYPE_CHAR                        = 'c';
-const char STREAM_TYPE_UCHAR                       = 'C';
-const char STREAM_TYPE_INT16                       = 'i';
-const char STREAM_TYPE_UINT16                      = 'I';
-const char STREAM_TYPE_INT32                       = 'l';
-const char STREAM_TYPE_UINT32                      = 'L';
-const char STREAM_TYPE_INT64                       = 'w';
-const char STREAM_TYPE_UINT64                      = 'W';
-const char STREAM_TYPE_STRING                      = 's';
-const char STREAM_TYPE_STREAM                      = 'S';
-const char STREAM_TYPE_STREAMABLE                  = 'M';
-const char STREAM_TYPE_UNKNOWN                     = 'X';
-
 /*!	@brief Message class for sending data over network sockets
  */
 class NetStream {
+public:
+	/*! @brief Encoded data type markers for built-ins and primatives */
+	enum Type : u_short {
+		CHAR				= 'c',
+		UCHAR				= 'C',
+		INT16				= 'i',
+		UINT16			= 'I',
+		INT32				= 'l',
+		UINT32			= 'L',
+		INT64				= 'w',
+		UINT64			= 'W',
+		STRING			= 's',
+		STREAM			= 'S',
+		STREAMABLE	= 'M',
+		UNKNOWN			= 'X'
+	};
+
 	///Typedefs local to class
 	typedef std::vector<char>						Buffer_t;
 
