@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# Project, build, and other common operating system files
+*.kdev4
+.kdev4/
+.directory
+build/
