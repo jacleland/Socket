@@ -102,8 +102,11 @@ int main(int argc, char *argv[]) {
 
 		delete pSock;
 	}
-	catch(SocketException &se) {
+	catch(const SocketException &se) {
 		std::cout << se.what() << " (" << se.code() << ")" << std::endl;
+	}
+	catch(const int& i) {
+		//Help
 	}
 
 	return 0;
@@ -139,7 +142,21 @@ void GetArgs(int argc, char **argv) {
 			//TODO: Implement exception throw/help text w/usage
 			case 'h':
 			default:
-				std::cout << "Oops" << std::endl;
+				std::cout << "This is the echo server test application belonging to the Inet::Socket C++" << std::endl;
+				std::cout << "library. The program can be run without arguments and will listen on the" << std::endl;
+				std::cout << "default port for one client. The program will exit once the client socket" << std::endl;
+				std::cout << "is closed." << std::endl << std::endl;
+				std::cout << "Usage: " << std::endl;
+				std::cout << "   echoserver [OPTION]..." << std::endl << std::endl;
+				std::cout << "Options: " << std::endl;
+				std::cout << "   -p <PORT>    Specify the port on which the server will listen" << std::endl;
+				std::cout << "                Port 30100 is used by default." << std::endl;
+				std::cout << "   -n           Configure server socket as non-blocking" << std::endl;
+				std::cout << "                The client socket will be configured as blocking by default." << std::endl;
+				std::cout << "   -f           Don't exit when client closes connection" << std::endl;
+				std::cout << "                By default, the server will exit after the first client disconnects." << std::endl;
+				std::cout << "   -h           Display help for this application" << std::endl;
+				throw 0;
 		}
 	}
 }

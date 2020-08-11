@@ -106,11 +106,14 @@ int main(int argc, char *argv[]) {
 		client->close();
 		delete client;
 	}
-	catch(AddressException &ae) {
+	catch(const AddressException &ae) {
 		std::cout << ae.what() << " (" << ae.code() << ")" << std::endl;
 	}
-	catch(SocketException &se) {
+	catch(const SocketException &se) {
 		std::cout << se.what() << " (" << se.code() << ")" << std::endl;
+	}
+	catch(const int& i) {
+		//Help
 	}
 
 	return 0;
@@ -126,7 +129,7 @@ void GetArgs(int argc, char **argv) {
 	char c;
 
 	//Iterate over arguments
-	while((c = getopt(argc, argv, "H:p:s:c:n")) != -1) {
+	while((c = getopt(argc, argv, "H:p:s:c:nh")) != -1) {
 		switch(c) {
 			//Get hostname to use for connect address
 			case 'H':
@@ -161,7 +164,28 @@ void GetArgs(int argc, char **argv) {
 			//TODO: Implement exception throw/help text w/usage
 			case 'h':
 			default:
-				std::cout << "Oops" << std::endl;
+				std::cout << "This is the echo client test application belonging to the Inet::Socket C++" << std::endl;
+				std::cout << "library. The program can be run without arguments and will attempt to connect" << std::endl;
+				std::cout << "to an echo server running on the local machine and listening on the default" << std::endl;
+				std::cout << "port. The program will attempt to send and receive 10, 1024-byte messages and" << std::endl;
+				std::cout << "will exit when completed." << std::endl << std::endl;
+
+
+				std::cout << "Usage: " << std::endl;
+				std::cout << "   echoclient [OPTION]..." << std::endl << std::endl;
+				std::cout << "Options: " << std::endl;
+				std::cout << "  -H <HOST>     Specify the host name or IP address for the server" << std::endl;
+				std::cout << "                The default behavior is to assume localhost." << std::endl;
+				std::cout << "  -p <PORT>     Specify the port on which the server will listen" << std::endl;
+				std::cout << "                Port 30100 is used by default." << std::endl;
+				std::cout << "  -s <SIZE>     The size of each echo message to send" << std::endl;
+				std::cout << "                The default message size is 1024 bytes." << std::endl;
+				std::cout << "  -c <COUNT>    The number of times to send an echo request" << std::endl;
+				std::cout << "                10 requests are sent by default." << std::endl;
+				std::cout << "  -n            Configure server socket as non-blocking" << std::endl;
+				std::cout << "                The client socket will be configured as blocking by default." << std::endl;
+				std::cout << "  -h            Display help for this application" << std::endl;
+				throw 0;
 		}
 	}
 }

@@ -44,11 +44,11 @@ set(LIBRARY_SOURCE_FILES
 )
 
 set(CLIENT_SOURCE_FILES
-	testapp/client.cpp
+	testapp/echoclient.cpp
 )
 
 set(SERVER_SOURCE_FILES
-	testapp/server.cpp
+	testapp/echoserver.cpp
 )
 
 ###############################################################################
