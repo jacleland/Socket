@@ -32,52 +32,55 @@
 
 //Namespace container
 namespace Inet {
-	const int		STREAM_ERR_INVALID_TYPE                = 1;
-	const char	STREAM_MSG_INVALID_TYPE[]              = "The next stream value is not of the requested type.";
 
-	/*!	@brief Exception type thrown by Address
-	 *	@author jcleland
+///Stream error messages and codes
+const int		STREAM_ERR_INVALID_TYPE                = 1;
+const char	STREAM_MSG_INVALID_TYPE[]              = "The next stream value is not of the requested type.";
+
+/*!	@brief Exception type thrown by Address
+	*	@author jcleland
+	*/
+class StreamException : public std::exception {
+public:
+	/*!	@brief Constructor for char* error message
+	 *	@param code An integer value to be associated with this exception
+	 *	@param message Point to buffer containing NULL-terminated string
 	 */
-	class StreamException : public std::exception {
-	public:
-		/*!	@brief Constructor for char* error message
-		 *	@param code An integer value to be associated with this exception
-		 *	@param message Point to buffer containing NULL-terminated string
-		 */
-		explicit StreamException(const int& code, const char* message) :
-		code_(code), msg_(message) {
-		}
+	explicit StreamException(const int& code, const char* message) :
+	code_(code), msg_(message) {
+	}
 
-		/*!	@brief Constructor for std::string error message
-		 *	@param code An integer value to be associated with this exception
-		 *	@param message A std::string instance containing the error message
-		 */
-		explicit StreamException(const int& code, const std::string& message) :
-		code_(code), msg_(message) {
-		}
+	/*!	@brief Constructor for std::string error message
+	 *	@param code An integer value to be associated with this exception
+	 *	@param message A std::string instance containing the error message
+	 */
+	explicit StreamException(const int& code, const std::string& message) :
+	code_(code), msg_(message) {
+	}
 
-		/*!	@brief Destructor */
-		virtual ~StreamException() throw() {}
+	/*!	@brief Destructor */
+	virtual ~StreamException() throw() {}
 
-		/*! @brief Returns an integer exception code
-		 *	@return An integer value representing the code associated with this exception
-		 */
-		virtual const int& code() const noexcept {
-			return code_;
-		}
+	/*! @brief Returns an integer exception code
+	 *	@return An integer value representing the code associated with this exception
+	 */
+	virtual const int& code() const noexcept {
+		return code_;
+	}
 
-		/*!	@brief Returns a pointer to the (constant) error description
-		 *	@return A const char* pointing to the error message string
-		 *	@throw std::exception if message is null
-		 */
-		virtual const char* what() const noexcept override {
-			return msg_.c_str();
-		}
+	/*!	@brief Returns a pointer to the (constant) error description
+	 *	@return A const char* pointing to the error message string
+	 *	@throw std::exception if message is null
+	 */
+	virtual const char* what() const noexcept override {
+		return msg_.c_str();
+	}
 
-	protected:
-		int						code_;				/*! Error code associated with this exception */
-		std::string 	msg_;					/*! Message string */
-	};
+protected:
+	int						code_;				/*! Error code associated with this exception */
+	std::string 	msg_;					/*! Message string */
+};
+
 } //Inet namespace
 
 #endif	//STREAMEXCEPTION_H_INCLUDED

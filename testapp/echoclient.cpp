@@ -161,7 +161,6 @@ void GetArgs(int argc, char **argv) {
 				break;
 
 			//Help or any other arg will land here
-			//TODO: Implement exception throw/help text w/usage
 			case 'h':
 			default:
 				std::cout << "This is the echo client test application belonging to the Inet::Socket C++" << std::endl;

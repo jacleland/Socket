@@ -124,7 +124,7 @@ ConnectionEndpoint ServerSocket::accept() {
 	}
 
 	//Create endpoint from client socket and address
-	return std::move(ConnectionEndpoint(client, &address, addrLen));
+	return ConnectionEndpoint(client, &address, addrLen);
 }
 
 /*!	@brief Close the server socket

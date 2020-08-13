@@ -61,113 +61,113 @@ typedef AddrInfo_t*										AddrInfoPtr_t;
  *	@author jcleland
  */
 class Address {
-	public:
-		/*!	@brief Address family type definition */
-		enum class Family : int {
-			ANY = AF_UNSPEC,
-			IPV4 = AF_INET,
-			IPV6 = AF_INET6
-		};
+public:
+	/*!	@brief Address family type definition */
+	enum class Family : int {
+		ANY = AF_UNSPEC,
+		IPV4 = AF_INET,
+		IPV6 = AF_INET6
+	};
 
-		/*! @brief Socket protocol type definition
-		 *	@todo This should probably be moved to Socket, but not wanting
-		 *	to create a circular depend relationship between Socket and Address
-		 */
-		enum class Protocol : int {
-			ANY = 0,
-			UDP = SOCK_DGRAM,
-			TCP = SOCK_STREAM
-		};
+	/*! @brief Socket protocol type definition
+	 *	@todo This should probably be moved to Socket, but not wanting
+	 *	to create a circular depend relationship between Socket and Address
+	 */
+	enum class Protocol : int {
+		ANY = 0,
+		UDP = SOCK_DGRAM,
+		TCP = SOCK_STREAM
+	};
 
-		/*!	@brief Return an address instance for a port (or service type) on the local machine
-		 *	@param service The service (port or service string) to use for addresses
-		 *	@return An address instance referencing one or more addresses for the specified host and service
-		 */
-		static AddressUPtr_t get(const char *service);
+	/*!	@brief Return an address instance for a port (or service type) on the local machine
+	 *	@param service The service (port or service string) to use for addresses
+	 *	@return An address instance referencing one or more addresses for the specified host and service
+	 */
+	static AddressUPtr_t get(const char *service);
 
-		/*!	@brief Return an address instance for a host and port (or service type)
-		 *	@param host The hostname to use for addresses
-		 *	@param service The service (port or service string) to use for addresses
-		 *	@return An address instance referencing one or more addresses for the specified host and service
-		 */
-		static AddressUPtr_t get(const char *host, const char *service);
+	/*!	@brief Return an address instance for a host and port (or service type)
+	 *	@param host The hostname to use for addresses
+	 *	@param service The service (port or service string) to use for addresses
+	 *	@return An address instance referencing one or more addresses for the specified host and service
+	 */
+	static AddressUPtr_t get(const char *host, const char *service);
 
-		/*!	@brief Return an address instance for service name or port
-		 *	@param host The hostname to use for addresses
-		 *	@param service The service (port or service string) to use for addresses
-		 *	@param family The address family to use
-		 *	@param protocol The protocol specification, either TCP (Stream) or UDP (Datagram)
-		 */
-		static AddressUPtr_t get(const char* host, const char* service,
-														 Family family, Protocol protocol);
+	/*!	@brief Return an address instance for service name or port
+	 *	@param host The hostname to use for addresses
+	 *	@param service The service (port or service string) to use for addresses
+	 *	@param family The address family to use
+	 *	@param protocol The protocol specification, either TCP (Stream) or UDP (Datagram)
+	 */
+	static AddressUPtr_t get(const char* host, const char* service,
+														Family family, Protocol protocol);
 
-	public:
-		/*! @brief Default constructor */
-		Address();
+public:
+	/*! @brief Default constructor */
+	Address();
 
-		/*! @brief Construct instance using AddrInfo*
-		 *	Construction by factory interface to take a pointer to addinfo
-		 *	as retrieved and allocated by getaddrinfo. This value should be
-		 *	deallocated using freeaddrinfo() upon destruction.
-		 *	@param pInfo A pointer to AddrInfo data from getaddrinfo()
-		 */
-		Address(AddrInfo_t* pInfo);
+	/*! @brief Construct instance using AddrInfo*
+	 *	Construction by factory interface to take a pointer to addinfo
+	 *	as retrieved and allocated by getaddrinfo. This value should be
+	 *	deallocated using freeaddrinfo() upon destruction.
+	 *	@param pInfo A pointer to AddrInfo data from getaddrinfo()
+	 */
+	Address(AddrInfo_t* pInfo);
 
-		/*!	@brief Destructor */
-		virtual ~Address();
+	/*!	@brief Destructor */
+	virtual ~Address();
 
-		/*!	@brief Copy constructor - deleted */
-		Address(const Address& other) = delete;
+	/*!	@brief Copy constructor - deleted */
+	Address(const Address& other) = delete;
 
-		/*!	@brief Move constructor
-		 *	@param other The instance to copy from
-		 */
-		Address(Address&& other);
+	/*!	@brief Move constructor
+	 *	@param other The instance to copy from
+	 */
+	Address(Address&& other);
 
-		/*!	@brief Assignment operator - deleted */
-		Address& operator=(const Address& other) = delete;
+	/*!	@brief Assignment operator - deleted */
+	Address& operator=(const Address& other) = delete;
 
-		/*!	@brief Move assignment operator
-		 *	@param other A const rvalue reference to move from
-		 *	@return A reference to this object instance
-		 */
-		Address& operator=(Address&& other);
+	/*!	@brief Move assignment operator
+	 *	@param other A const rvalue reference to move from
+	 *	@return A reference to this object instance
+	 */
+	Address& operator=(Address&& other);
 
-		/*!	@brief Conversion operator for casting Address to addrinfo*
-		 *	@return A pointer to the current addrinfo pointer associated with this address
-		 */
-		operator AddrInfoPtr_t () const {
-			return pCurrent_;
-		}
+	/*!	@brief Conversion operator for casting Address to addrinfo*
+	 *	@return A pointer to the current addrinfo pointer associated with this address
+	 */
+	operator AddrInfoPtr_t () const {
+		return pCurrent_;
+	}
 
-		/*!	@brief Type conversion to sockaddr*
-		 *	@return A SockAddrPtr_t representing the address encapsulated by this Address
-		 */
-		operator SockAddrPtr_t () const {
-			return (pCurrent_ != nullptr) ? pCurrent_->ai_addr : nullptr;
-		}
+	/*!	@brief Type conversion to sockaddr*
+	 *	@return A SockAddrPtr_t representing the address encapsulated by this Address
+	 */
+	operator SockAddrPtr_t () const {
+		return (pCurrent_ != nullptr) ? pCurrent_->ai_addr : nullptr;
+	}
 
-		/*!	@brief Reset current address reference to the first returned address
-		 */
-		void first();
+	/*!	@brief Reset current address reference to the first returned address
+	 */
+	void first();
 
-		/*!	@brief Returns true if the address will contain valid information after a call to next()
-		 *	@return True if the address will be valid after calling next(), false if
-		 *	there are no more addresses in the linked list.
-		 */
-		bool hasNext() const;
+	/*!	@brief Returns true if the address will contain valid information after a call to next()
+	 *	@return True if the address will be valid after calling next(), false if
+	 *	there are no more addresses in the linked list.
+	 */
+	bool hasNext() const;
 
-		/*!	@brief Increments the current address info pointer to the next value
-		 */
-		void next();
+	/*!	@brief Increments the current address info pointer to the next value
+	 */
+	void next();
 
-	private:
-		//Static members
-		static std::string 	localhost_;			/*!< Static host def for server addresses */
+private:
+	//Static members
+	static std::string 	localhost_;			/*!< Static host def for server addresses */
 
-		//Member data
-		AddrInfoPtr_t		pAddrInfo_;	/*!<	Address info struct returned by getaddrinfo() */
-		AddrInfoPtr_t		pCurrent_;		/*!<	The first address info for iteration */
+	//Member data
+	AddrInfoPtr_t		pAddrInfo_;	/*!<	Address info struct returned by getaddrinfo() */
+	AddrInfoPtr_t		pCurrent_;		/*!<	The first address info for iteration */
 }; //Address
 
 }; //Inet namespace

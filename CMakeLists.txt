@@ -43,14 +43,6 @@ set(LIBRARY_SOURCE_FILES
 	src/NetStream.cpp
 )
 
-set(CLIENT_SOURCE_FILES
-	testapp/echoclient.cpp
-)
-
-set(SERVER_SOURCE_FILES
-	testapp/echoserver.cpp
-)
-
 ###############################################################################
 # Library targets
 #
@@ -65,22 +57,9 @@ add_library(Socket_static STATIC ${LIBRARY_SOURCE_FILES})
 set_target_properties(Socket_static PROPERTIES OUTPUT_NAME Socket)
 
 ###############################################################################
-# Define executable targets for socket echo client and server
+# Add test application subdirectory to build
 #
-
-#------------------------------------------------------------------------------
-# Echo client target
-#
-add_executable(EchoClient ${CLIENT_SOURCE_FILES})
-set_target_properties(EchoClient PROPERTIES OUTPUT_NAME echoclient)
-target_link_libraries(EchoClient PRIVATE Socket_shared)
-
-#----------------------------------------------------------
-# Echo server target
-#
-add_executable(EchoServer ${SERVER_SOURCE_FILES})
-set_target_properties(EchoServer PROPERTIES OUTPUT_NAME echoserver)
-target_link_libraries(EchoServer PRIVATE Socket_shared)
+add_subdirectory(testapp)
 
 ###############################################################################
 # If CxxTest is installed, build unit tests for CTest

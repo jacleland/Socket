@@ -86,7 +86,11 @@ public:
 	/*!	@brief Returns a const reference to the internal data vector */
 	inline const Buffer_t& data() const { return buffer_; }
 
-	/*!	@brief Set raw data in the internal vector */
+	/*!	@brief Set raw data in the internal vector
+	 *	@param data Pointer to data buffer to encode
+	 *	@param	size The size of the data buffer
+	 *	@return 0
+	 */
 	int32_t setRaw( u_char* data, u_int32_t size );
 
 	/*!	@brief Add char value to this data stream
@@ -142,6 +146,13 @@ public:
 	 *	@return Reference to this stream instance
 	 */
 	virtual NetStream& operator<<(const std::string &val);
+
+	/*!	@brief Write a buffer of char data to the stream
+	 *	@param buf A pointer to the data to write
+	 *	@param bytes The number of bytes to write from the pointer
+	 *	@return A reference to this stream
+	 */
+	virtual NetStream& write(const char* buf, const size_t bytes);
 
 	/*!	@brief Add char value to this data stream
 	 *	@param val Character value to append to the stream data
@@ -220,6 +231,6 @@ private:
 private:
 	Buffer_t		buffer_;
 };
-}
+} //Namespace
 
 #endif // NETMESSAGE_H_INCLUDED

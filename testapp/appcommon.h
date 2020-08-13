@@ -36,6 +36,7 @@
 #include "ConnectionEndpoint.h"
 #include "AddressException.h"
 #include "SocketException.h"
+#include "NetStream.h"
 
 //Defaults
 #define HOSTNAME	"localhost"
@@ -48,6 +49,7 @@ namespace Inet {
 
 //Typedefs
 typedef std::unique_ptr<char[]>				BufferPtr_t;
+
 
 /*!	@brief Send a message to the endpoint specified
  *	@param conn The ConnectionEndpoint to which the message will be sent
