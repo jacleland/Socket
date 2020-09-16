@@ -1,6 +1,6 @@
 root = true
 
-[*.{c,cpp,h}]
+[*.{c,cpp,h,java,sql,js,css}]
 indent_style = tab
 indent_size = 2
 
